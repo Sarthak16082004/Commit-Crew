@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alex Chen — Frontend Engineer · NexDev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#080810; --bg2:#0e0e1a; --bg3:#141420; --bg4:#1c1c2e;
+      --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.13);
+      --text:#f0f0f8; --text2:#9898b8; --text3:#555570;
+      --green:#7fff6e; --blue:#6eb5ff; --pink:#ff6eb5; --amber:#ffb86e;
+      --accent: #6eb5ff;
+      --fD:'Bebas Neue',sans-serif; --fB:'Outfit',sans-serif; --fC:'JetBrains Mono',monospace;
+    }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--fB); line-height:1.6; }
+    a { text-decoration:none; color:inherit; }
+    ::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-track { background:var(--bg); } ::-webkit-scrollbar-thumb { background:var(--bg4); }
+
+    nav {
+      position:sticky; top:0; z-index:100;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.9rem 2.5rem;
+      background:rgba(8,8,16,.92); backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-logo { font-family:var(--fD); font-size:1.3rem; letter-spacing:3px; }
+    .nav-logo span { color:var(--green); }
+    .back-btn {
+      display:inline-flex; align-items:center; gap:.4rem;
+      font-family:var(--fC); font-size:12px; color:var(--text3);
+      transition:color .2s;
+    }
+    .back-btn:hover { color:var(--accent); }
+
+    .page { max-width:860px; margin:0 auto; padding:3.5rem 2.5rem; }
+
+    /* HEADER */
+    .m-header { display:flex; align-items:flex-start; gap:2rem; margin-bottom:3.5rem; }
+    .m-av {
+      width:90px; height:90px; border-radius:50%; flex-shrink:0;
+      border:2px solid var(--accent);
+      background:rgba(255,255,255,.04);
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--fD); font-size:1.4rem; letter-spacing:3px; color:var(--accent);
+    }
+    .m-branch { font-family:var(--fC); font-size:11px; color:var(--accent); letter-spacing:1px; margin-bottom:.4rem; }
+    .m-name { font-family:var(--fD); font-size:clamp(2.5rem,5vw,4rem); letter-spacing:2px; line-height:1; margin-bottom:.5rem; }
+    .m-bio { color:var(--text2); font-size:14px; max-width:500px; line-height:1.75; margin-bottom:1.1rem; }
+    .m-meta { display:flex; gap:.5rem; flex-wrap:wrap; }
+    .m-badge {
+      font-family:var(--fC); font-size:10px; letter-spacing:1px;
+      background:var(--bg3); border:1px solid var(--border);
+      padding:.28rem .65rem; border-radius:20px; color:var(--text3);
+    }
+    .m-badge.accent { color:var(--accent); border-color:rgba(110,181,255,.25); }
+
+    /* SECTIONS */
+    .sec { margin-bottom:3rem; }
+    .sec-title {
+      font-family:var(--fD); font-size:1.9rem; letter-spacing:2px;
+      margin-bottom:1.3rem; padding-bottom:.7rem;
+      border-bottom:1px solid var(--border);
+    }
+
+    /* SKILLS */
+    .skills { display:flex; flex-wrap:wrap; gap:.6rem; }
+    .skill {
+      font-family:var(--fC); font-size:11px;
+      background:var(--bg2); border:1px solid var(--border);
+      padding:.42rem .9rem; border-radius:6px; color:var(--text2);
+      transition:border-color .2s, color .2s;
+    }
+    .skill:hover { border-color:var(--border2); color:var(--text); }
+
+    /* PROJECTS */
+    .projects { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:1rem; }
+    .project {
+      background:var(--bg2); border:1px solid var(--border);
+      border-radius:10px; padding:1.4rem;
+      transition:border-color .2s, transform .2s;
+    }
+    .project:hover { border-color:var(--border2); transform:translateY(-2px); }
+    .project h4 { font-size:1rem; font-weight:700; margin-bottom:.5rem; }
+    .project p { color:var(--text2); font-size:12.5px; line-height:1.6; margin-bottom:.9rem; }
+    .project a { color:var(--accent); font-family:var(--fC); font-size:11px; }
+
+    /* CONTACT */
+    .contacts { display:flex; gap:.7rem; flex-wrap:wrap; }
+    .contact {
+      display:inline-flex; align-items:center; gap:.5rem;
+      border:1px solid var(--border); padding:.6rem 1.2rem;
+      border-radius:8px; font-size:13px;
+      transition:border-color .2s, color .2s;
+    }
+    .contact:hover { border-color:var(--accent); color:var(--accent); }
+
+    /* NAV BETWEEN MEMBERS */
+    .member-nav {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-top:4rem; padding-top:2rem; border-top:1px solid var(--border);
+    }
+    .member-nav a {
+      font-family:var(--fC); font-size:12px; color:var(--text3);
+      display:flex; align-items:center; gap:.4rem;
+      transition:color .2s;
+    }
+    .member-nav a:hover { color:var(--green); }
+
+    @media (max-width:600px) {
+      .m-header { flex-direction:column; }
+      .page { padding:2rem 1.2rem; }
+      nav { padding:.8rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">NEX<span>DEV</span></div>
+  <a href="../index.html" class="back-btn">← Back to Team</a>
+</nav>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="m-header">
+    <div class="m-av">AX</div>
+    <div>
+      <div class="m-branch">// FRONTEND ENGINEER · feat/alex-chen</div>
+      <h1 class="m-name">ALEX CHEN</h1>
+      <p class="m-bio">I build fast, accessible, and beautiful interfaces. Obsessed with CSS animations, component architecture, and making the web feel alive. 4+ years turning Figma mocks into pixel-perfect reality.</p>
+      <div class="m-meta">
+        <span class="m-badge">📍 San Francisco, CA</span>
+        <span class="m-badge">⎇ feat/alex-chen</span>
+        <span class="m-badge">🕐 PST (UTC-8)</span>
+        <span class="m-badge accent">✅ Open to work</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="sec">
+    <h2 class="sec-title">SKILLS</h2>
+    <div class="skills">
+      <span class="skill">React 18</span>
+      <span class="skill">TypeScript</span>
+      <span class="skill">CSS / Sass</span>
+      <span class="skill">Tailwind CSS</span>
+      <span class="skill">Figma</span>
+      <span class="skill">Framer Motion</span>
+      <span class="skill">Three.js</span>
+      <span class="skill">Accessibility (a11y)</span>
+      <span class="skill">Storybook</span>
+      <span class="skill">Vitest / Jest</span>
+      <span class="skill">Webpack / Vite</span>
+      <span class="skill">Performance Optimization</span>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="sec">
+    <h2 class="sec-title">PROJECTS</h2>
+    <div class="projects">
+      <div class="project">
+        <h4>DesignSystem UI</h4>
+        <p>Component library with 50+ components, Figma token sync, dark/light modes, WCAG 2.1 AA compliance. Used by 3 live products.</p>
+        <a href="#">github.com/alex/design-system ↗</a>
+      </div>
+      <div class="project">
+        <h4>AnimateIt</h4>
+        <p>CSS animation playground — 90+ ready-to-use animations. 2.8k GitHub stars. Featured on CSS-Tricks.</p>
+        <a href="#">animateit.dev ↗</a>
+      </div>
+      <div class="project">
+        <h4>Portfolio v4</h4>
+        <p>Personal site with WebGL shader background, scroll-driven animations, and 99/100 Lighthouse score across all 4 metrics.</p>
+        <a href="#">alexchen.dev ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="sec">
+    <h2 class="sec-title">CONTACT</h2>
+    <div class="contacts">
+      <a href="#" class="contact">🐙 GitHub</a>
+      <a href="#" class="contact">💼 LinkedIn</a>
+      <a href="#" class="contact">🐦 Twitter</a>
+      <a href="mailto:alex@example.com" class="contact">✉️ alex@example.com</a>
+    </div>
+  </div>
+
+  <!-- NAV BETWEEN MEMBERS -->
+  <div class="member-nav">
+    <a href="../index.html">← All Members</a>
+    <a href="maya.html">Next: Maya Patel →</a>
+  </div>
+
+</div>
+</body>
+</html>

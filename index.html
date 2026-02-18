@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NexDev — Team Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================
+       NEXDEV PORTFOLIO — ALL STYLES EMBEDDED
+    ============================================ */
+    :root {
+      --bg:     #080810;
+      --bg2:    #0e0e1a;
+      --bg3:    #141420;
+      --bg4:    #1c1c2e;
+      --border: rgba(255,255,255,.07);
+      --border2:rgba(255,255,255,.13);
+      --text:   #f0f0f8;
+      --text2:  #9898b8;
+      --text3:  #555570;
+      --green:  #7fff6e;
+      --blue:   #6eb5ff;
+      --pink:   #ff6eb5;
+      --amber:  #ffb86e;
+      --purple: #c792ea;
+      --fD: 'Bebas Neue', sans-serif;
+      --fB: 'Outfit', sans-serif;
+      --fC: 'JetBrains Mono', monospace;
+      --r: 12px;
+      --ease: .25s cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--fB);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+
+    /* ── LOADER ── */
+    .loader {
+      position: fixed; inset: 0; background: var(--bg);
+      z-index: 9999; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 1.2rem;
+      transition: opacity .6s ease, visibility .6s ease;
+    }
+    .loader.out { opacity: 0; visibility: hidden; }
+    .ld-label { font-family: var(--fC); font-size: 13px; color: var(--green); }
+    .ld-bar {
+      width: 280px; height: 3px;
+      background: var(--bg3); border-radius: 2px; overflow: hidden;
+    }
+    .ld-fill {
+      height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--green), var(--blue));
+      border-radius: 2px; transition: width .08s linear;
+    }
+    .ld-status { font-family: var(--fC); font-size: 11px; color: var(--text3); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      transition: background .3s, border-color .3s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(8,8,16,.92);
+      backdrop-filter: blur(14px);
+      border-color: var(--border);
+    }
+    .nav-logo { font-family: var(--fD); font-size: 1.4rem; letter-spacing: 3px; }
+    .nav-logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 1.8rem; }
+    .nav-links a { font-size: 13px; color: var(--text2); transition: color var(--ease); }
+    .nav-links a:hover { color: var(--text); }
+    .nav-gh {
+      display: flex; align-items: center; gap: .4rem;
+      font-size: 13px; background: var(--bg3);
+      border: 1px solid var(--border2);
+      padding: .45rem 1rem; border-radius: 7px;
+      transition: background var(--ease);
+    }
+    .nav-gh:hover { background: var(--bg4); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 3rem;
+      padding: 7rem 2.5rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    canvas#hero-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; opacity: .5;
+    }
+    .hero-content { position: relative; z-index: 2; }
+
+    .eyebrow {
+      display: flex; align-items: center; gap: .6rem;
+      font-family: var(--fC); font-size: 11px;
+      color: var(--text3); letter-spacing: 2px;
+      margin-bottom: 1.8rem;
+      animation: fadeUp .6s ease both;
+    }
+    .eyebrow-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(127,255,110,.5);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(127,255,110,.5); }
+      50%      { box-shadow: 0 0 0 8px rgba(127,255,110,0); }
+    }
+
+    .hero-title {
+      font-family: var(--fD);
+      font-size: clamp(4rem, 7vw, 7.5rem);
+      letter-spacing: 2px; line-height: .95;
+      margin-bottom: 1.8rem;
+    }
+    .hero-title .line { display: block; animation: fadeUp .7s ease both; }
+    .hero-title .line:nth-child(2) { animation-delay:.08s; color: var(--text2); }
+    .hero-title .line:nth-child(3) { animation-delay:.16s; }
+    .hero-title em { font-style:normal; color: var(--green); }
+
+    .hero-sub {
+      font-size: 15px; color: var(--text2); line-height: 1.7;
+      max-width: 460px; margin-bottom: 2.2rem;
+      animation: fadeUp .7s ease .24s both;
+    }
+    .hero-btns {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      margin-bottom: 3rem;
+      animation: fadeUp .7s ease .3s both;
+    }
+    .btn-green {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--green); color: #000;
+      padding: .8rem 1.8rem; border-radius: 8px;
+      font-weight: 700; font-size: 14px;
+      transition: transform var(--ease), box-shadow var(--ease);
+    }
+    .btn-green:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(127,255,110,.3); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: .5rem;
+      border: 1px solid var(--border2); color: var(--text);
+      padding: .8rem 1.8rem; border-radius: 8px;
+      font-size: 14px; transition: border-color var(--ease), background var(--ease);
+    }
+    .btn-outline:hover { border-color: var(--green); background: rgba(127,255,110,.05); }
+
+    .hero-stats {
+      display: flex; align-items: center; gap: 2rem;
+      animation: fadeUp .7s ease .38s both;
+    }
+    .stat span {
+      display: block;
+      font-family: var(--fD); font-size: 2.4rem;
+      color: var(--green); line-height: 1;
+    }
+    .stat p { font-family: var(--fC); font-size: 10px; color: var(--text3); letter-spacing: 2px; }
+    .stat-div { width: 1px; height: 36px; background: var(--border2); }
+
+    /* Terminal */
+    .hero-terminal {
+      position: relative; z-index: 2;
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,.6);
+      animation: fadeIn .8s ease .45s both;
+    }
+    .term-bar {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.2rem;
+      background: var(--bg3); border-bottom: 1px solid var(--border);
+    }
+    .tdot { width: 11px; height: 11px; border-radius: 50%; }
+    .term-title { margin-left: auto; font-family: var(--fC); font-size: 11px; color: var(--text3); }
+    .term-body {
+      padding: 1.2rem 1.4rem;
+      font-family: var(--fC); font-size: 12.5px; line-height: 1.9;
+      min-height: 260px;
+    }
+    .tl { display: block; }
+    .tprompt { color: var(--green); }
+    .tcmd { color: var(--text); }
+    .thash { color: var(--amber); }
+    .tcommit { color: var(--text2); padding-left: 1rem; display: block; }
+    .tbranch { color: var(--blue); padding-left: 1rem; display: block; }
+    .tbranch.active { color: var(--green); }
+    .tcursor { color: var(--green); animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ── SECTION COMMON ── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 2.5rem; }
+    section { padding: 5.5rem 0; }
+    .sec-tag {
+      display: block; font-family: var(--fC); font-size: 11px;
+      color: var(--green); letter-spacing: 3px; margin-bottom: .8rem;
+    }
+    .sec-title {
+      font-family: var(--fD);
+      font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+      letter-spacing: 2px; line-height: 1; margin-bottom: .8rem;
+    }
+    .sec-title em { font-style: normal; color: var(--green); }
+    .sec-sub { color: var(--text2); font-size: 14px; max-width: 520px; margin-bottom: 3rem; }
+
+    /* ── BRANCH CANVAS ── */
+    .branch-section { background: var(--bg2); }
+    .branch-wrap {
+      border: 1px solid var(--border); border-radius: var(--r);
+      overflow: hidden; margin-top: 1.5rem;
+    }
+    #branch-canvas { width: 100%; display: block; height: 170px; }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.4rem;
+    }
+    .mcard {
+      position: relative;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.7rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      text-decoration: none; color: inherit;
+      transition: transform var(--ease), border-color var(--ease), box-shadow var(--ease);
+      overflow: hidden;
+    }
+    .mcard::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: var(--c, #fff);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s ease;
+    }
+    .mcard:hover { transform: translateY(-5px); border-color: rgba(255,255,255,.16); box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+    .mcard:hover::before { transform: scaleX(1); }
+
+    .mcard-top { display: flex; align-items: flex-start; justify-content: space-between; }
+    .mavatar {
+      width: 54px; height: 54px; border-radius: 50%;
+      border: 2px solid var(--c, #fff);
+      background: rgba(255,255,255,.04);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--fD); font-size: 1rem; letter-spacing: 2px;
+      color: var(--c, #fff);
+    }
+    .mbadge {
+      display: flex; align-items: center; gap: .3rem;
+      font-family: var(--fC); font-size: 10px; color: var(--text3);
+      background: var(--bg3); border: 1px solid var(--border);
+      padding: .28rem .6rem; border-radius: 20px;
+    }
+    .mcard h3 { font-size: 1.2rem; font-weight: 700; }
+    .mrole { font-family: var(--fC); font-size: 11px; color: var(--c, var(--text2)); letter-spacing: 1px; display: block; margin-bottom: .6rem; }
+    .mcard p { color: var(--text2); font-size: 13px; line-height: 1.6; }
+    .mtags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .2rem; }
+    .mtags span {
+      font-family: var(--fC); font-size: 10px;
+      background: var(--bg3); border: 1px solid var(--border);
+      padding: .2rem .5rem; border-radius: 4px; color: var(--text3);
+    }
+    .mfoot {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: .9rem; border-top: 1px solid var(--border);
+    }
+    .mnum { font-family: var(--fD); font-size: 1.7rem; color: var(--border2); }
+    .mcta { font-size: 12px; color: var(--text3); transition: color var(--ease); }
+    .mcard:hover .mcta { color: var(--green); }
+
+    /* ── WORKFLOW ── */
+    .wf-section { background: var(--bg2); }
+    .wf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1.2rem;
+    }
+    .wf-card {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.8rem;
+    }
+    .wf-num { font-family: var(--fD); font-size: 3rem; color: var(--border2); line-height: 1; margin-bottom: .4rem; }
+    .wf-icon {
+      width: 48px; height: 48px;
+      background: var(--bg4); border: 1px solid var(--border2);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 1rem;
+    }
+    .wf-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .6rem; }
+    .wf-card p { color: var(--text2); font-size: 13px; line-height: 1.6; margin-bottom: .9rem; }
+    .wf-tag {
+      display: inline-block; font-family: var(--fC); font-size: 10px;
+      border: 1px solid var(--border2); padding: .22rem .65rem;
+      border-radius: 20px; color: var(--text3); letter-spacing: 1px;
+    }
+
+    /* ── KANBAN ── */
+    .kanban-board {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1rem; margin-bottom: 1.2rem;
+    }
+    .kcol {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1rem;
+      min-height: 320px;
+    }
+    .kcol.drag-over { border-color: var(--green); background: rgba(127,255,110,.03); }
+    .khead {
+      display: flex; align-items: center; gap: .5rem;
+      font-weight: 600; font-size: 13px;
+      padding-bottom: .7rem; margin-bottom: .7rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .kdot { width: 7px; height: 7px; border-radius: 50%; }
+    .kcount {
+      margin-left: auto; font-family: var(--fC); font-size: 10px;
+      background: var(--bg3); border: 1px solid var(--border);
+      padding: .1rem .45rem; border-radius: 10px; color: var(--text3);
+    }
+    .kcards { display: flex; flex-direction: column; gap: .6rem; }
+    .kcard {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 8px; padding: .85rem;
+      cursor: grab;
+      transition: box-shadow var(--ease), transform var(--ease);
+    }
+    .kcard:hover { box-shadow: 0 4px 20px rgba(0,0,0,.4); transform: translateY(-1px); }
+    .kcard.dragging { opacity: .35; }
+    .kcard.done { opacity: .5; }
+    .klabel {
+      display: inline-block; font-family: var(--fC); font-size: 10px;
+      padding: .12rem .45rem; border-radius: 3px; margin-bottom: .45rem;
+    }
+    .kcard-title { font-size: 12.5px; font-weight: 500; margin-bottom: .35rem; }
+    .kcard-meta { font-family: var(--fC); font-size: 10px; color: var(--text3); }
+    .kanban-hint { text-align: center; font-size: 12px; color: var(--text3); margin-top: .5rem; }
+
+    /* ── GIT TABS ── */
+    .git-section { background: var(--bg2); }
+    .gtabs { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+    .gtab {
+      font-family: var(--fC); font-size: 12px;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text3); padding: .45rem 1.1rem; border-radius: 6px;
+      cursor: pointer; transition: all var(--ease);
+    }
+    .gtab:hover, .gtab.active {
+      background: var(--bg4); color: var(--green); border-color: rgba(127,255,110,.4);
+    }
+    .gpanel { display: none; }
+    .gpanel.active { display: block; }
+    .gcmds { display: flex; flex-direction: column; gap: .7rem; }
+    .gcmd {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 8px; padding: .9rem 1.1rem;
+      cursor: pointer; transition: border-color var(--ease), background var(--ease);
+      flex-wrap: wrap;
+    }
+    .gcmd:hover { border-color: var(--border2); background: var(--bg4); }
+    .gdollar { color: var(--green); font-family: var(--fC); }
+    .gcmd code { font-family: var(--fC); font-size: 13px; color: var(--blue); flex: 1; }
+    .gdesc { color: var(--text3); font-size: 12px; }
+    .gcopy {
+      background: var(--bg4); border: 1px solid var(--border2);
+      color: var(--text3); font-family: var(--fC); font-size: 10px;
+      padding: .2rem .6rem; border-radius: 4px; white-space: nowrap;
+      transition: all var(--ease); margin-left: auto;
+    }
+    .gcmd:hover .gcopy { color: var(--green); border-color: rgba(127,255,110,.4); }
+    .gcopy.copied { color: var(--green); border-color: rgba(127,255,110,.4); background: rgba(127,255,110,.08); }
+
+    /* conflict explainer */
+    .conflict-box { max-width: 680px; }
+    .conflict-box h4 { font-size: 1.05rem; margin-bottom: .7rem; }
+    .conflict-box > p { color: var(--text2); font-size: 13px; margin-bottom: 1rem; }
+    .conf-code {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.1rem 1.3rem; margin-bottom: 1.3rem;
+      overflow-x: auto;
+    }
+    .conf-code pre { font-family: var(--fC); font-size: 12.5px; line-height: 1.9; }
+    .cm { color: var(--amber); }
+    .co { color: var(--green); }
+    .cs { color: var(--text3); }
+    .ct { color: var(--pink); }
+    .conf-steps { padding-left: 1.4rem; color: var(--text2); font-size: 13px; line-height: 1.9; }
+    .conf-steps strong { color: var(--text); }
+    .conf-steps code { font-family: var(--fC); font-size: 11px; color: var(--green); background: var(--bg3); padding: .1rem .35rem; border-radius: 3px; }
+
+    /* ── CI/CD ── */
+    .pipe-wrap {
+      display: flex; align-items: center;
+      gap: 0; overflow-x: auto; margin-bottom: 2rem;
+    }
+    .pstep {
+      flex: 1; min-width: 150px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.4rem 1rem;
+      text-align: center;
+      transition: border-color var(--ease), box-shadow var(--ease);
+    }
+    .pstep.running { border-color: var(--amber); box-shadow: 0 0 24px rgba(255,184,110,.15); }
+    .pstep.success { border-color: var(--green); box-shadow: 0 0 24px rgba(127,255,110,.15); }
+    .picon {
+      width: 44px; height: 44px; margin: 0 auto .7rem;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 9px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; transition: all var(--ease);
+    }
+    .pstep.running .picon { border-color: var(--amber); }
+    .pstep.success .picon { border-color: var(--green); }
+    .pstep h4 { font-size: 13px; font-weight: 700; margin-bottom: .3rem; }
+    .pstep p { font-size: 11px; color: var(--text3); margin-bottom: .7rem; }
+    .pstatus {
+      display: inline-block; font-family: var(--fC); font-size: 10px;
+      padding: .2rem .65rem; border-radius: 20px; letter-spacing: 1px;
+      border: 1px solid var(--border); background: var(--bg3); color: var(--text3);
+      transition: all var(--ease);
+    }
+    .pstep.running  .pstatus { background: rgba(255,184,110,.12); color: var(--amber); border-color: rgba(255,184,110,.3); }
+    .pstep.success  .pstatus { background: rgba(127,255,110,.1); color: var(--green); border-color: rgba(127,255,110,.3); }
+    .pline {
+      width: 36px; height: 2px; background: var(--border2); flex-shrink: 0;
+      position: relative; overflow: hidden;
+    }
+    .pflow {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, var(--green));
+      transform: translateX(-100%);
+    }
+    .pflow.go { animation: flowAnim .6s ease forwards; }
+    @keyframes flowAnim { to { transform: translateX(0); } }
+    .pipe-btns { display: flex; gap: 1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2.5rem;
+    }
+    .footer-inner {
+      max-width: 1160px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .flogo { font-family: var(--fD); font-size: 1.3rem; letter-spacing: 3px; margin-bottom: .3rem; }
+    .flogo span { color: var(--green); }
+    footer p { color: var(--text3); font-family: var(--fC); font-size: 11px; }
+    .flinks { display: flex; gap: 1.8rem; }
+    .flinks a { color: var(--text3); font-size: 12px; transition: color var(--ease); }
+    .flinks a:hover { color: var(--green); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+    .reveal { opacity:0; transform:translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+      .hero-terminal { display: none; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .container { padding: 0 1.5rem; }
+      .kanban-board { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .kanban-board { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="ld-label">$ git clone nexdev/portfolio</div>
+  <div class="ld-bar"><div class="ld-fill" id="ld-fill"></div></div>
+  <div class="ld-status" id="ld-status">Initializing...</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">NEX<span>DEV</span></div>
+  <div class="nav-links">
+    <a href="#team">Team</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#git">Git Guide</a>
+    <a href="#kanban">Kanban</a>
+  </div>
+  <a href="https://github.com" target="_blank" class="nav-gh">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+    GitHub
+  </a>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="hero">
+  <canvas id="hero-canvas"></canvas>
+
+  <div class="hero-content">
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      Open Source · Git &amp; Agile · 2024
+    </div>
+
+    <h1 class="hero-title">
+      <span class="line">WE CODE</span>
+      <span class="line">WE COMMIT</span>
+      <span class="line">WE <em>SHIP.</em></span>
+    </h1>
+
+    <p class="hero-sub">
+      Four developers. Four branches. One vision.<br>
+      Built with Git, Agile methodology, and relentless attention to craft.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#team" class="btn-green">Explore Team →</a>
+      <a href="#git" class="btn-outline">Git Cheatsheet</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><span data-target="4" class="counter">4</span><p>MEMBERS</p></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span data-target="16" class="counter">16</span><p>PROJECTS</p></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span data-target="48" class="counter">48</span><p>COMMITS</p></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span data-target="12" class="counter">12</span><p>PRs MERGED</p></div>
+    </div>
+  </div>
+
+  <!-- Terminal -->
+  <div class="hero-terminal">
+    <div class="term-bar">
+      <span class="tdot" style="background:#ff5f56"></span>
+      <span class="tdot" style="background:#ffbd2e"></span>
+      <span class="tdot" style="background:#27c93f"></span>
+      <span class="term-title">zsh — nexdev-portfolio</span>
+    </div>
+    <div class="term-body">
+      <span class="tl"><span class="tprompt">~</span> <span class="tcmd">git log --oneline</span></span>
+      <span class="tcommit"><span class="thash">a3f9c12</span> feat: add sam devops page ✅</span>
+      <span class="tcommit"><span class="thash">b7e2d45</span> feat: jordan fullstack portfolio</span>
+      <span class="tcommit"><span class="thash">c1a8f33</span> feat: maya backend skills section</span>
+      <span class="tcommit"><span class="thash">d5b9e78</span> feat: alex frontend page</span>
+      <span class="tcommit"><span class="thash">e2c4a91</span> chore: initial project scaffold</span>
+      <span class="tl"><span class="tprompt">~</span> <span class="tcmd">git branch</span></span>
+      <span class="tbranch">  feat/alex-chen</span>
+      <span class="tbranch">  feat/maya-patel</span>
+      <span class="tbranch">  feat/jordan-kim</span>
+      <span class="tbranch">  feat/sam-rivera</span>
+      <span class="tbranch active">* main</span>
+      <span class="tl"><span class="tprompt">~</span> <span id="typing-cmd" class="tcmd"></span><span class="tcursor">▋</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BRANCH VISUALIZER ═══════════════ -->
+<section class="branch-section">
+  <div class="container">
+    <span class="sec-tag">// git branch visualization</span>
+    <h2 class="sec-title">The Branch <em>Workflow</em></h2>
+    <p class="sec-sub">Every member works on their own branch — no conflicts, clean history. Features merge via Pull Requests.</p>
+    <div class="branch-wrap">
+      <canvas id="branch-canvas"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TEAM ═══════════════ -->
+<section id="team" style="background:var(--bg)">
+  <div class="container">
+    <span class="sec-tag">// the team</span>
+    <h2 class="sec-title">Meet the <em>Crew</em></h2>
+    <p class="sec-sub">Click any card to view that member's full portfolio page.</p>
+
+    <div class="team-grid">
+      <!-- Alex -->
+      <a href="alex.html" class="mcard" style="--c:#6eb5ff">
+        <div class="mcard-top">
+          <div class="mavatar">AX</div>
+          <div class="mbadge">⎇ feat/alex-chen</div>
+        </div>
+        <div>
+          <h3>Alex Chen</h3>
+          <span class="mrole">FRONTEND ENGINEER</span>
+          <p>Pixel-perfect UIs, micro-interactions, and design systems that scale.</p>
+          <div class="mtags"><span>React</span><span>TypeScript</span><span>CSS</span><span>Figma</span></div>
+        </div>
+        <div class="mfoot"><span class="mnum">01</span><span class="mcta">View Profile →</span></div>
+      </a>
+
+      <!-- Maya -->
+      <a href="maya.html" class="mcard" style="--c:#7fff6e">
+        <div class="mcard-top">
+          <div class="mavatar">MY</div>
+          <div class="mbadge">⎇ feat/maya-patel</div>
+        </div>
+        <div>
+          <h3>Maya Patel</h3>
+          <span class="mrole">BACKEND ENGINEER</span>
+          <p>Scalable APIs, distributed systems, and infrastructure that never sleeps.</p>
+          <div class="mtags"><span>Node.js</span><span>Python</span><span>PostgreSQL</span><span>AWS</span></div>
+        </div>
+        <div class="mfoot"><span class="mnum">02</span><span class="mcta">View Profile →</span></div>
+      </a>
+
+      <!-- Jordan -->
+      <a href="jordan.html" class="mcard" style="--c:#ff6eb5">
+        <div class="mcard-top">
+          <div class="mavatar">JK</div>
+          <div class="mbadge">⎇ feat/jordan-kim</div>
+        </div>
+        <div>
+          <h3>Jordan Kim</h3>
+          <span class="mrole">FULLSTACK ENGINEER</span>
+          <p>End-to-end product builder — from DB schema to polished UI.</p>
+          <div class="mtags"><span>Next.js</span><span>MongoDB</span><span>Docker</span><span>tRPC</span></div>
+        </div>
+        <div class="mfoot"><span class="mnum">03</span><span class="mcta">View Profile →</span></div>
+      </a>
+
+      <!-- Sam -->
+      <a href="sam.html" class="mcard" style="--c:#ffb86e">
+        <div class="mcard-top">
+          <div class="mavatar">SR</div>
+          <div class="mbadge">⎇ feat/sam-rivera</div>
+        </div>
+        <div>
+          <h3>Sam Rivera</h3>
+          <span class="mrole">DEVOPS ENGINEER</span>
+          <p>CI/CD pipelines, container orchestration, and infra-as-code. Ships fast.</p>
+          <div class="mtags"><span>GitHub Actions</span><span>K8s</span><span>Terraform</span></div>
+        </div>
+        <div class="mfoot"><span class="mnum">04</span><span class="mcta">View Profile →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ WORKFLOW ═══════════════ -->
+<section class="wf-section" id="workflow">
+  <div class="container">
+    <span class="sec-tag">// how we work</span>
+    <h2 class="sec-title">Agile <em>Workflow</em></h2>
+    <p class="sec-sub">Sprint planning → feature branch → pull request → CI/CD deploy. Every time, without exception.</p>
+
+    <div class="wf-grid">
+      <div class="wf-card reveal">
+        <div class="wf-num">01</div>
+        <div class="wf-icon">📋</div>
+        <h3>Sprint Planning</h3>
+        <p>Every 2 weeks, pick tasks from the backlog. Each task = a GitHub Issue linked to a feature branch.</p>
+        <span class="wf-tag">KANBAN BOARD</span>
+      </div>
+      <div class="wf-card reveal">
+        <div class="wf-num">02</div>
+        <div class="wf-icon">⎇</div>
+        <h3>Feature Branch</h3>
+        <p>Create <code style="font-family:var(--fC);font-size:11px;color:var(--green)">feat/name</code>. Work in isolation. No one touches main directly.</p>
+        <span class="wf-tag">GIT BRANCHING</span>
+      </div>
+      <div class="wf-card reveal">
+        <div class="wf-num">03</div>
+        <div class="wf-icon">🔍</div>
+        <h3>Pull Request</h3>
+        <p>Open a PR. Teammate reviews. At least 1 approval needed before merging to main.</p>
+        <span class="wf-tag">CODE REVIEW</span>
+      </div>
+      <div class="wf-card reveal">
+        <div class="wf-num">04</div>
+        <div class="wf-icon">🚀</div>
+        <h3>CI/CD Deploy</h3>
+        <p>GitHub Actions validates HTML &amp; CSS then auto-deploys to GitHub Pages. Zero manual steps.</p>
+        <span class="wf-tag">AUTOMATION</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ KANBAN ═══════════════ -->
+<section id="kanban" style="background:var(--bg)">
+  <div class="container">
+    <span class="sec-tag">// project management</span>
+    <h2 class="sec-title">Live <em>Kanban Board</em></h2>
+    <p class="sec-sub">Drag cards between columns — this simulates how your real GitHub Projects board works.</p>
+
+    <div class="kanban-board" id="kanban-board">
+      <div class="kcol" id="col-backlog" ondragover="allowDrop(event)" ondrop="drop(event,'backlog')">
+        <div class="khead"><span class="kdot" style="background:#555"></span> Backlog <span class="kcount" id="cnt-backlog">3</span></div>
+        <div class="kcards">
+          <div class="kcard" draggable="true" ondragstart="drag(event)" id="t1">
+            <div class="klabel" style="background:#6eb5ff22;color:#6eb5ff">Frontend</div>
+            <div class="kcard-title">Add dark/light mode toggle</div>
+            <div class="kcard-meta">#7 · Alex</div>
+          </div>
+          <div class="kcard" draggable="true" ondragstart="drag(event)" id="t2">
+            <div class="klabel" style="background:#7fff6e22;color:#7fff6e">Backend</div>
+            <div class="kcard-title">Add contact form endpoint</div>
+            <div class="kcard-meta">#8 · Maya</div>
+          </div>
+          <div class="kcard" draggable="true" ondragstart="drag(event)" id="t3">
+            <div class="klabel" style="background:#ffb86e22;color:#ffb86e">DevOps</div>
+            <div class="kcard-title">Set up staging environment</div>
+            <div class="kcard-meta">#9 · Sam</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kcol" id="col-progress" ondragover="allowDrop(event)" ondrop="drop(event,'progress')">
+        <div class="khead"><span class="kdot" style="background:#6eb5ff"></span> In Progress <span class="kcount" id="cnt-progress">2</span></div>
+        <div class="kcards">
+          <div class="kcard" draggable="true" ondragstart="drag(event)" id="t4">
+            <div class="klabel" style="background:#ff6eb522;color:#ff6eb5">Fullstack</div>
+            <div class="kcard-title">Build project showcase page</div>
+            <div class="kcard-meta">#5 · Jordan</div>
+          </div>
+          <div class="kcard" draggable="true" ondragstart="drag(event)" id="t5">
+            <div class="klabel" style="background:#ffb86e22;color:#ffb86e">DevOps</div>
+            <div class="kcard-title">Configure GitHub Actions CI</div>
+            <div class="kcard-meta">#6 · Sam</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kcol" id="col-review" ondragover="allowDrop(event)" ondrop="drop(event,'review')">
+        <div class="khead"><span class="kdot" style="background:#c792ea"></span> In Review <span class="kcount" id="cnt-review">1</span></div>
+        <div class="kcards">
+          <div class="kcard" draggable="true" ondragstart="drag(event)" id="t6">
+            <div class="klabel" style="background:#7fff6e22;color:#7fff6e">Backend</div>
+            <div class="kcard-title">Maya portfolio page PR #12</div>
+            <div class="kcard-meta">#4 · Maya · awaiting review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kcol" id="col-done" ondragover="allowDrop(event)" ondrop="drop(event,'done')">
+        <div class="khead"><span class="kdot" style="background:#7fff6e"></span> Done <span class="kcount" id="cnt-done">3</span></div>
+        <div class="kcards">
+          <div class="kcard done" draggable="true" ondragstart="drag(event)" id="t7">
+            <div class="klabel" style="background:#6eb5ff22;color:#6eb5ff">Frontend</div>
+            <div class="kcard-title">Alex portfolio page ✓</div>
+            <div class="kcard-meta">#1 · Merged to main</div>
+          </div>
+          <div class="kcard done" draggable="true" ondragstart="drag(event)" id="t8">
+            <div class="klabel" style="background:#ff6eb522;color:#ff6eb5">Fullstack</div>
+            <div class="kcard-title">Jordan portfolio page ✓</div>
+            <div class="kcard-meta">#2 · Merged to main</div>
+          </div>
+          <div class="kcard done" draggable="true" ondragstart="drag(event)" id="t9">
+            <div class="klabel" style="background:#ffb86e22;color:#ffb86e">DevOps</div>
+            <div class="kcard-title">Initial repo scaffold ✓</div>
+            <div class="kcard-meta">#0 · Merged to main</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="kanban-hint">💡 Drag any card to a different column — just like GitHub Projects!</p>
+  </div>
+</section>
+
+<!-- ═══════════════ GIT CHEATSHEET ═══════════════ -->
+<section class="git-section" id="git">
+  <div class="container">
+    <span class="sec-tag">// reference guide</span>
+    <h2 class="sec-title">Git <em>Cheatsheet</em></h2>
+    <p class="sec-sub">Click any command to copy it. Use these every day.</p>
+
+    <div class="gtabs">
+      <button class="gtab active" onclick="switchTab('setup',this)">Setup</button>
+      <button class="gtab" onclick="switchTab('branch',this)">Branching</button>
+      <button class="gtab" onclick="switchTab('daily',this)">Daily Flow</button>
+      <button class="gtab" onclick="switchTab('collab',this)">Collaboration</button>
+      <button class="gtab" onclick="switchTab('conflict',this)">Conflicts</button>
+    </div>
+
+    <div class="gpanel active" id="panel-setup">
+      <div class="gcmds">
+        <div class="gcmd" onclick="copyCmd(this,'git config --global user.name &quot;Your Name&quot;')"><span class="gdollar">$</span><code>git config --global user.name "Your Name"</code><span class="gdesc">Set your Git username</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git config --global user.email &quot;you@email.com&quot;')"><span class="gdollar">$</span><code>git config --global user.email "you@email.com"</code><span class="gdesc">Set your email</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git init')"><span class="gdollar">$</span><code>git init</code><span class="gdesc">Initialize a new repo</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git clone https://github.com/user/repo.git')"><span class="gdollar">$</span><code>git clone https://github.com/user/repo.git</code><span class="gdesc">Clone from GitHub</span><span class="gcopy">Copy</span></div>
+      </div>
+    </div>
+
+    <div class="gpanel" id="panel-branch">
+      <div class="gcmds">
+        <div class="gcmd" onclick="copyCmd(this,'git branch')"><span class="gdollar">$</span><code>git branch</code><span class="gdesc">List all branches</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git checkout -b feat/your-name')"><span class="gdollar">$</span><code>git checkout -b feat/your-name</code><span class="gdesc">Create &amp; switch to new branch</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git checkout main')"><span class="gdollar">$</span><code>git checkout main</code><span class="gdesc">Switch back to main</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git branch -d feat/your-name')"><span class="gdollar">$</span><code>git branch -d feat/your-name</code><span class="gdesc">Delete a merged branch</span><span class="gcopy">Copy</span></div>
+      </div>
+    </div>
+
+    <div class="gpanel" id="panel-daily">
+      <div class="gcmds">
+        <div class="gcmd" onclick="copyCmd(this,'git status')"><span class="gdollar">$</span><code>git status</code><span class="gdesc">See changed files</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git add .')"><span class="gdollar">$</span><code>git add .</code><span class="gdesc">Stage all changes</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git commit -m &quot;feat: describe your change&quot;')"><span class="gdollar">$</span><code>git commit -m "feat: describe your change"</code><span class="gdesc">Save a snapshot</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git push origin HEAD')"><span class="gdollar">$</span><code>git push origin HEAD</code><span class="gdesc">Push current branch to GitHub</span><span class="gcopy">Copy</span></div>
+      </div>
+    </div>
+
+    <div class="gpanel" id="panel-collab">
+      <div class="gcmds">
+        <div class="gcmd" onclick="copyCmd(this,'git pull origin main')"><span class="gdollar">$</span><code>git pull origin main</code><span class="gdesc">Get latest changes from main</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git fetch --all')"><span class="gdollar">$</span><code>git fetch --all</code><span class="gdesc">Download all remote branches</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git log --oneline --graph --all')"><span class="gdollar">$</span><code>git log --oneline --graph --all</code><span class="gdesc">Visual branch history</span><span class="gcopy">Copy</span></div>
+        <div class="gcmd" onclick="copyCmd(this,'git rebase origin/main')"><span class="gdollar">$</span><code>git rebase origin/main</code><span class="gdesc">Rebase onto latest main</span><span class="gcopy">Copy</span></div>
+      </div>
+    </div>
+
+    <div class="gpanel" id="panel-conflict">
+      <div class="conflict-box">
+        <h4>How to Resolve a Merge Conflict</h4>
+        <p>When two branches change the same line, Git marks both versions:</p>
+        <div class="conf-code">
+<pre><span class="cm">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD  (your branch)</span>
+<span class="co">&lt;h1&gt;Welcome to NexDev&lt;/h1&gt;</span>
+<span class="cs">=======</span>
+<span class="ct">&lt;h1&gt;NexDev Portfolio 2024&lt;/h1&gt;</span>
+<span class="cm">&gt;&gt;&gt;&gt;&gt;&gt;&gt; feat/other-branch</span></pre>
+        </div>
+        <ol class="conf-steps">
+          <li>Open the file in VS Code — it highlights conflicts in red/green</li>
+          <li>Click <strong>"Accept Current Change"</strong> or <strong>"Accept Incoming"</strong> or edit manually</li>
+          <li>Remove all <code>&lt;&lt;&lt;</code>, <code>===</code>, <code>&gt;&gt;&gt;</code> markers — none should remain</li>
+          <li>Run: <code>git add .</code> then <code>git commit -m "fix: resolve merge conflict"</code></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CI/CD PIPELINE ═══════════════ -->
+<section style="background:var(--bg)">
+  <div class="container">
+    <span class="sec-tag">// automation</span>
+    <h2 class="sec-title">CI/CD <em>Pipeline</em></h2>
+    <p class="sec-sub">What GitHub Actions does automatically every time you push code.</p>
+
+    <div class="pipe-wrap">
+      <div class="pstep" id="p1">
+        <div class="picon">💻</div>
+        <h4>git push</h4>
+        <p>Push triggers workflow</p>
+        <span class="pstatus">Waiting</span>
+      </div>
+      <div class="pline"><div class="pflow" id="pf1"></div></div>
+      <div class="pstep" id="p2">
+        <div class="picon">📄</div>
+        <h4>Validate HTML</h4>
+        <p>HTMLHint checks syntax</p>
+        <span class="pstatus">Waiting</span>
+      </div>
+      <div class="pline"><div class="pflow" id="pf2"></div></div>
+      <div class="pstep" id="p3">
+        <div class="picon">🎨</div>
+        <h4>Lint CSS</h4>
+        <p>Stylelint checks styles</p>
+        <span class="pstatus">Waiting</span>
+      </div>
+      <div class="pline"><div class="pflow" id="pf3"></div></div>
+      <div class="pstep" id="p4">
+        <div class="picon">🌐</div>
+        <h4>Deploy</h4>
+        <p>GitHub Pages goes live</p>
+        <span class="pstatus">Waiting</span>
+      </div>
+    </div>
+
+    <div class="pipe-btns">
+      <button class="btn-green" id="run-btn" onclick="runPipeline()">▶ Simulate Pipeline</button>
+      <button class="btn-outline" id="reset-btn" onclick="resetPipeline()" style="display:none">↺ Reset</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="flogo">NEX<span>DEV</span></div>
+      <p>Built with HTML · CSS · Vanilla JS · GitHub Actions</p>
+    </div>
+    <div class="flinks">
+      <a href="https://github.com" target="_blank">GitHub ↗</a>
+      <a href="#kanban">Kanban ↗</a>
+      <a href="#git">Git Guide ↗</a>
+      <a href="README.md">README ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════
+   ALL JAVASCRIPT — SELF CONTAINED
+════════════════════════════════════════════ */
+
+// ── LOADER ──────────────────────────────────
+(function(){
+  const fill = document.getElementById('ld-fill');
+  const status = document.getElementById('ld-status');
+  const loader = document.getElementById('loader');
+  const msgs = ['Cloning into portfolio...','Receiving objects: 100%','Resolving deltas...','Checking out files...','Done ✓'];
+  let pct = 0;
+  const t = setInterval(() => {
+    pct += Math.random() * 20 + 8;
+    if (pct >= 100) { pct = 100; clearInterval(t); }
+    fill.style.width = pct + '%';
+    status.textContent = msgs[Math.min(4, Math.floor(pct/25))];
+    if (pct === 100) setTimeout(() => { loader.classList.add('out'); initAll(); }, 400);
+  }, 120);
+})();
+
+function initAll() {
+  initNav();
+  initReveal();
+  initCounters();
+  initTerminal();
+  initHeroCanvas();
+  initBranchCanvas();
+}
+
+// ── NAV ─────────────────────────────────────
+function initNav() {
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
+}
+
+// ── SCROLL REVEAL ────────────────────────────
+function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 100);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // member cards stagger
+  document.querySelectorAll('.mcard').forEach((c,i) => {
+    c.style.opacity = '0';
+    c.style.transform = 'translateY(18px)';
+    c.style.transition = `opacity .5s ease ${i*.1}s, transform .5s ease ${i*.1}s, border-color .25s, box-shadow .25s`;
+    setTimeout(() => { c.style.opacity = '1'; c.style.transform = 'translateY(0)'; }, 600 + i * 100);
+  });
+}
+
+// ── COUNTERS ─────────────────────────────────
+function initCounters() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target._done) {
+        e.target._done = true;
+        const target = +e.target.dataset.target;
+        let n = 0, steps = 40;
+        const t = setInterval(() => {
+          n++;
+          e.target.textContent = Math.round((n/steps)*target);
+          if (n >= steps) { e.target.textContent = target; clearInterval(t); }
+        }, 30);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.counter').forEach(el => obs.observe(el));
+}
+
+// ── TERMINAL TYPEWRITER ──────────────────────
+function initTerminal() {
+  const el = document.getElementById('typing-cmd');
+  if (!el) return;
+  const cmds = ['git status','git checkout -b feat/new','git push origin HEAD','gh pr create --fill'];
+  let ci = 0;
+  function type(cmd) {
+    let i = 0; el.textContent = '';
+    const t = setInterval(() => {
+      el.textContent += cmd[i++];
+      if (i >= cmd.length) { clearInterval(t); setTimeout(() => erase(cmd), 1800); }
+    }, 70);
+  }
+  function erase(cmd) {
+    let i = cmd.length;
+    const t = setInterval(() => {
+      el.textContent = cmd.slice(0, --i);
+      if (i <= 0) { clearInterval(t); ci = (ci+1)%cmds.length; setTimeout(() => type(cmds[ci]), 400); }
+    }, 35);
+  }
+  setTimeout(() => type(cmds[0]), 1000);
+}
+
+// ── HERO CANVAS PARTICLES ────────────────────
+function initHeroCanvas() {
+  const c = document.getElementById('hero-canvas');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  let W, H, pts = [];
+
+  function resize() {
+    W = c.width = c.offsetWidth;
+    H = c.height = c.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); });
+
+  class P {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random()*W; this.y = Math.random()*H;
+      this.vx = (Math.random()-.5)*.35; this.vy = (Math.random()-.5)*.35;
+      this.r = Math.random()*1.5+.4;
+      this.a = Math.random()*.45+.1;
+      this.col = ['#7fff6e','#6eb5ff','#ffffff'][Math.floor(Math.random()*3)];
+    }
+    update() { this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>W||this.y<0||this.y>H) this.reset(); }
+    draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle=this.col; ctx.globalAlpha=this.a; ctx.fill(); ctx.globalAlpha=1; }
+  }
+
+  function initPts() { pts = Array.from({length: Math.floor((W*H)/14000)}, ()=>new P()); }
+  initPts();
+
+  (function loop() {
+    ctx.clearRect(0,0,W,H);
+    for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++) {
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<90){ ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.strokeStyle='rgba(127,255,110,0.035)'; ctx.lineWidth=.5; ctx.stroke(); }
+    }
+    pts.forEach(p=>{p.update();p.draw();});
+    requestAnimationFrame(loop);
+  })();
+}
+
+// ── BRANCH CANVAS ────────────────────────────
+function initBranchCanvas() {
+  const c = document.getElementById('branch-canvas');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  let prog = 0;
+
+  function resize() { c.width = c.offsetWidth; c.height = c.offsetHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const branches = [
+    { name:'main',             col:'#7fff6e', y:.5,  commits:[.04,.26,.52,.70,.88,.96], start:0,    end:1   },
+    { name:'feat/alex-chen',   col:'#6eb5ff', y:.2,  commits:[.12,.21,.30],             start:.07,  end:.52 },
+    { name:'feat/maya-patel',  col:'#7fff6e', y:.78, commits:[.36,.46,.56],             start:.28,  end:.70 },
+    { name:'feat/jordan-kim',  col:'#ff6eb5', y:.35, commits:[.60,.68],                 start:.55,  end:.88 },
+    { name:'feat/sam-rivera',  col:'#ffb86e', y:.65, commits:[.13,.22],                 start:.09,  end:.26 },
+  ];
+
+  function draw() {
+    const W=c.width, H=c.height;
+    ctx.clearRect(0,0,W,H);
+    const p = prog;
+    branches.forEach((br,bi) => {
+      const y=br.y*H, col=br.col;
+      if (bi===0) {
+        ctx.beginPath(); ctx.moveTo(W*.02,y); ctx.lineTo(W*(.02+.96*p),y);
+        ctx.strokeStyle=col; ctx.lineWidth=2; ctx.globalAlpha=.65; ctx.stroke(); ctx.globalAlpha=1;
+      } else {
+        const sx=br.start*W, ex=br.end*W, vex=Math.min(ex,W*(.02+.96*p));
+        if(sx>vex) return;
+        const my=branches[0].y*H;
+        ctx.beginPath(); ctx.moveTo(sx,my);
+        ctx.bezierCurveTo(sx+18,my,sx+18,y,sx+36,y);
+        ctx.lineTo(Math.max(sx+36, vex));
+        if(vex>=ex-5) { ctx.bezierCurveTo(vex,y,vex+14,my,vex+28,my); }
+        ctx.strokeStyle=col; ctx.lineWidth=1.5; ctx.globalAlpha=.55; ctx.stroke(); ctx.globalAlpha=1;
+      }
+      br.commits.forEach(cx => {
+        const x=cx*W, by=br.y*H;
+        if(x>W*(.02+.96*p)) return;
+        const g=ctx.createRadialGradient(x,by,0,x,by,13);
+        g.addColorStop(0,col+'50'); g.addColorStop(1,'transparent');
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,by,13,0,Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(x,by,5,0,Math.PI*2);
+        ctx.fillStyle=col; ctx.fill();
+        ctx.strokeStyle=col; ctx.lineWidth=2; ctx.stroke();
+      });
+      ctx.font='500 10.5px "JetBrains Mono",monospace';
+      ctx.fillStyle=col; ctx.globalAlpha=.75;
+      ctx.fillText(br.name, W*.015, br.y*H-10); ctx.globalAlpha=1;
+    });
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      obs.disconnect(); prog=0;
+      (function anim(){ if(prog<1){ prog+=.007; draw(); requestAnimationFrame(anim); } })();
+    }
+  }, { threshold:.3 });
+  obs.observe(c);
+}
+
+// ── GIT TABS ─────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.gtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.gpanel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+}
+
+// ── COPY COMMANDS ─────────────────────────────
+function copyCmd(el, text) {
+  const btn = el.querySelector('.gcopy');
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    btn.textContent = '✓ Done!'; setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+
+// ── KANBAN DRAG & DROP ───────────────────────
+let dragId = null;
+function drag(e) { dragId = e.target.id; e.target.classList.add('dragging'); }
+document.querySelectorAll('.kcard').forEach(c => c.addEventListener('dragend', () => c.classList.remove('dragging')));
+function allowDrop(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+document.querySelectorAll('.kcol').forEach(col => col.addEventListener('dragleave', () => col.classList.remove('drag-over')));
+function drop(e, colId) {
+  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
+  if (!dragId) return;
+  const card = document.getElementById(dragId);
+  const target = e.currentTarget.querySelector('.kcards');
+  if (card && target) {
+    target.appendChild(card);
+    card.classList.toggle('done', colId === 'done');
+    updateKCounts();
+    toast({ backlog:'📋 Moved to Backlog', progress:'⚡ In Progress!', review:'🔍 Ready for Review', done:'✅ Done!' }[colId] || 'Moved');
+  }
+  dragId = null;
+}
+function updateKCounts() {
+  ['backlog','progress','review','done'].forEach(id => {
+    const col = document.getElementById('col-'+id);
+    const cnt = document.getElementById('cnt-'+id);
+    if (col && cnt) cnt.textContent = col.querySelectorAll('.kcard').length;
+  });
+}
+
+// ── TOAST ────────────────────────────────────
+function toast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div'); t.id = 'toast';
+    Object.assign(t.style, {
+      position:'fixed', bottom:'2rem', right:'2rem', zIndex:'999',
+      background:'#141420', border:'1px solid rgba(127,255,110,.35)',
+      color:'#f0f0f8', padding:'.75rem 1.4rem', borderRadius:'8px',
+      fontFamily:'"JetBrains Mono",monospace', fontSize:'12px',
+      opacity:'0', transform:'translateY(12px)',
+      transition:'all .25s ease',
+      boxShadow:'0 8px 30px rgba(0,0,0,.4)'
+    });
+    document.body.appendChild(t);
+  }
+  t.textContent = msg; t.style.opacity='1'; t.style.transform='translateY(0)';
+  clearTimeout(t._t);
+  t._t = setTimeout(() => { t.style.opacity='0'; t.style.transform='translateY(12px)'; }, 2400);
+}
+
+// ── CI/CD PIPELINE SIMULATOR ─────────────────
+let pipeRunning = false;
+async function runPipeline() {
+  if (pipeRunning) return;
+  pipeRunning = true;
+  const rb = document.getElementById('run-btn');
+  rb.disabled = true; rb.textContent = '⏳ Running...';
+  const ids = ['p1','p2','p3','p4'];
+  const flows = ['pf1','pf2','pf3'];
+  resetPipeline(false);
+  await sleep(300);
+  for (let i = 0; i < ids.length; i++) {
+    const s = document.getElementById(ids[i]);
+    const st = s.querySelector('.pstatus');
+    if (i > 0) { document.getElementById(flows[i-1]).classList.add('go'); await sleep(600); }
+    s.classList.add('running'); st.textContent = 'Running...';
+    await sleep(900 + Math.random()*700);
+    s.classList.remove('running'); s.classList.add('success');
+    st.textContent = i === 3 ? '🌐 Live!' : '✓ Passed';
+  }
+  rb.style.display = 'none';
+  document.getElementById('reset-btn').style.display = 'inline-flex';
+  toast('🚀 Deployed to GitHub Pages!');
+  pipeRunning = false;
+}
+function resetPipeline(showBtn=true) {
+  pipeRunning = false;
+  ['p1','p2','p3','p4'].forEach(id => {
+    const s = document.getElementById(id); if(!s) return;
+    s.className = 'pstep';
+    s.querySelector('.pstatus').textContent = 'Waiting';
+    s.querySelector('.pstatus').className = 'pstatus';
+  });
+  ['pf1','pf2','pf3'].forEach(id => {
+    const f = document.getElementById(id); if(!f) return;
+    f.classList.remove('go'); f.style.transform = 'translateX(-100%)';
+  });
+  if (showBtn) {
+    const rb = document.getElementById('run-btn');
+    rb.disabled = false; rb.textContent = '▶ Simulate Pipeline';
+    rb.style.display = 'inline-flex';
+    document.getElementById('reset-btn').style.display = 'none';
+  }
+}
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+</script>
+
+</body>
+</html>

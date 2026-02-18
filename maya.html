@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maya Patel — Backend Engineer · NexDev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#080810;--bg2:#0e0e1a;--bg3:#141420;--bg4:#1c1c2e;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--text:#f0f0f8;--text2:#9898b8;--text3:#555570;--green:#7fff6e;--accent:#7fff6e;--fD:'Bebas Neue',sans-serif;--fB:'Outfit',sans-serif;--fC:'JetBrains Mono',monospace; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}body{background:var(--bg);color:var(--text);font-family:var(--fB);line-height:1.6;}a{text-decoration:none;color:inherit;}::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:#1c1c2e;}
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.9rem 2.5rem;background:rgba(8,8,16,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:var(--fD);font-size:1.3rem;letter-spacing:3px;}.nav-logo span{color:var(--green);}
+    .back-btn{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--fC);font-size:12px;color:var(--text3);transition:color .2s;}.back-btn:hover{color:var(--accent);}
+    .page{max-width:860px;margin:0 auto;padding:3.5rem 2.5rem;}
+    .m-header{display:flex;align-items:flex-start;gap:2rem;margin-bottom:3.5rem;}
+    .m-av{width:90px;height:90px;border-radius:50%;flex-shrink:0;border:2px solid var(--accent);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-family:var(--fD);font-size:1.4rem;letter-spacing:3px;color:var(--accent);}
+    .m-branch{font-family:var(--fC);font-size:11px;color:var(--accent);letter-spacing:1px;margin-bottom:.4rem;}
+    .m-name{font-family:var(--fD);font-size:clamp(2.5rem,5vw,4rem);letter-spacing:2px;line-height:1;margin-bottom:.5rem;}
+    .m-bio{color:var(--text2);font-size:14px;max-width:500px;line-height:1.75;margin-bottom:1.1rem;}
+    .m-meta{display:flex;gap:.5rem;flex-wrap:wrap;}
+    .m-badge{font-family:var(--fC);font-size:10px;background:var(--bg3);border:1px solid var(--border);padding:.28rem .65rem;border-radius:20px;color:var(--text3);}
+    .sec{margin-bottom:3rem;}
+    .sec-title{font-family:var(--fD);font-size:1.9rem;letter-spacing:2px;margin-bottom:1.3rem;padding-bottom:.7rem;border-bottom:1px solid var(--border);}
+    .skills{display:flex;flex-wrap:wrap;gap:.6rem;}
+    .skill{font-family:var(--fC);font-size:11px;background:var(--bg2);border:1px solid var(--border);padding:.42rem .9rem;border-radius:6px;color:var(--text2);transition:border-color .2s,color .2s;}.skill:hover{border-color:var(--border2);color:var(--text);}
+    .projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;}
+    .project{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color .2s,transform .2s;}.project:hover{border-color:var(--border2);transform:translateY(-2px);}
+    .project h4{font-size:1rem;font-weight:700;margin-bottom:.5rem;}.project p{color:var(--text2);font-size:12.5px;line-height:1.6;margin-bottom:.9rem;}.project a{color:var(--accent);font-family:var(--fC);font-size:11px;}
+    .contacts{display:flex;gap:.7rem;flex-wrap:wrap;}
+    .contact{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--border);padding:.6rem 1.2rem;border-radius:8px;font-size:13px;transition:border-color .2s,color .2s;}.contact:hover{border-color:var(--accent);color:var(--accent);}
+    .member-nav{display:flex;justify-content:space-between;align-items:center;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);}
+    .member-nav a{font-family:var(--fC);font-size:12px;color:var(--text3);display:flex;align-items:center;gap:.4rem;transition:color .2s;}.member-nav a:hover{color:var(--green);}
+    @media(max-width:600px){.m-header{flex-direction:column;}.page{padding:2rem 1.2rem;}nav{padding:.8rem 1.2rem;}}
+  </style>
+</head>
+<body>
+<nav><div class="nav-logo">NEX<span>DEV</span></div><a href="../index.html" class="back-btn">← Back to Team</a></nav>
+<div class="page">
+  <div class="m-header">
+    <div class="m-av">MY</div>
+    <div>
+      <div class="m-branch">// BACKEND ENGINEER · feat/maya-patel</div>
+      <h1 class="m-name">MAYA PATEL</h1>
+      <p class="m-bio">I design systems that scale to millions. From RESTful APIs to microservices architecture to cloud infrastructure — I build the engine behind the experience. 5+ years in distributed systems.</p>
+      <div class="m-meta">
+        <span class="m-badge">📍 Austin, TX</span>
+        <span class="m-badge">⎇ feat/maya-patel</span>
+        <span class="m-badge">🕐 CST (UTC-6)</span>
+      </div>
+    </div>
+  </div>
+  <div class="sec"><h2 class="sec-title">SKILLS</h2><div class="skills">
+    <span class="skill">Node.js</span><span class="skill">Python / FastAPI</span><span class="skill">PostgreSQL</span><span class="skill">Redis</span><span class="skill">AWS (EC2, S3, Lambda)</span><span class="skill">GraphQL</span><span class="skill">Apache Kafka</span><span class="skill">Microservices</span><span class="skill">REST API Design</span><span class="skill">Jest / Pytest</span><span class="skill">Docker</span><span class="skill">OpenAPI / Swagger</span>
+  </div></div>
+  <div class="sec"><h2 class="sec-title">PROJECTS</h2><div class="projects">
+    <div class="project"><h4>FastQueue</h4><p>High-throughput message queue with Node.js + Redis. Handles 50k msg/sec with full persistence and replay.</p><a href="#">github.com/maya/fastqueue ↗</a></div>
+    <div class="project"><h4>AuthKit</h4><p>Drop-in auth microservice: OAuth2, JWT, refresh tokens, MFA. Powering 15+ production apps.</p><a href="#">authkit.dev ↗</a></div>
+    <div class="project"><h4>DataPipeline</h4><p>ETL processing 1M+ daily records via AWS Lambda + S3 + PostgreSQL. 99.97% uptime over 18 months.</p><a href="#">github.com/maya/datapipeline ↗</a></div>
+  </div></div>
+  <div class="sec"><h2 class="sec-title">CONTACT</h2><div class="contacts">
+    <a href="#" class="contact">🐙 GitHub</a><a href="#" class="contact">💼 LinkedIn</a><a href="mailto:maya@example.com" class="contact">✉️ maya@example.com</a>
+  </div></div>
+  <div class="member-nav"><a href="alex.html">← Alex Chen</a><a href="jordan.html">Next: Jordan Kim →</a></div>
+</div>
+</body>
+</html>

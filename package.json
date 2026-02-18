@@ -1,0 +1,17 @@
+{
+  "name": "nexdev-portfolio",
+  "version": "2.0.0",
+  "description": "Team portfolio website — Git & Agile workflow demo",
+  "scripts": {
+    "start": "npx live-server --port=3000 --open=index.html",
+    "lint:html": "htmlhint **/*.html --config .htmlhintrc",
+    "lint:css": "stylelint css/**/*.css --config .stylelintrc",
+    "lint": "npm run lint:html && npm run lint:css"
+  },
+  "devDependencies": {
+    "htmlhint": "^1.1.4",
+    "live-server": "^1.2.2",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0"
+  }
+}
