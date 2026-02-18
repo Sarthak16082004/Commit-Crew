@@ -2,13 +2,13 @@
 
 > A production-grade team portfolio demonstrating Git branching strategy, Agile workflow, interactive Kanban board, and CI/CD automation via GitHub Actions.
 
-[![CI/CD Pipeline](https://github.com/YOUR-USERNAME/commitcrew/actions/workflows/deploy.yml/badge.svg)](https://github.com/YOUR-USERNAME/commitcrew/actions)
-[![GitHub Pages](https://img.shields.io/badge/hosted-GitHub%20Pages-green)](https://YOUR-USERNAME.github.io/commitcrew)
+[![CI/CD Pipeline](https://github.com/Sarthak16082004/Commit-Crew/actions/workflows/deploy.yml/badge.svg)](https://github.com/Sarthak16082004/Commit-Crew/actions)
+[![GitHub Pages](https://img.shields.io/badge/hosted-GitHub%20Pages-green)](https://Sarthak16082004.github.io/Commit-Crew)
 
 ---
 
 ## 🌐 Live Demo
-**[https://YOUR-USERNAME.github.io/commitcrew](https://YOUR-USERNAME.github.io/commitcrew)**
+**[https://Sarthak16082004.github.io/Commit-Crew](https://Sarthak16082004.github.io/Commit-Crew)**
 
 ---
 
@@ -53,8 +53,8 @@
 
 ```bash
 # 1. Clone
-git clone https://github.com/YOUR-USERNAME/commitcrew.git
-cd commitcrew
+git clone https://github.com/Sarthak16082004/Commit-Crew.git
+cd Commit-Crew
 
 # 2. Install dev tools
 npm install
@@ -175,7 +175,7 @@ git push
 ## 📁 Project Structure
 
 ```
-commitcrew/
+Commit-Crew/
 ├── index.html                    ← Homepage
 ├── css/
 │   └── style.css                 ← All styles (~700 lines)
