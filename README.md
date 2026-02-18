@@ -1,4 +1,4 @@
-# CommitCrew — Team Portfolio Website
+# Commit-Crew — Team Portfolio Website
 
 > A production-grade team portfolio demonstrating Git branching strategy, Agile workflow, interactive Kanban board, and CI/CD automation via GitHub Actions.
 
