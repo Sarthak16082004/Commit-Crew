@@ -1,5 +1,5 @@
 /* =========================================
-   NEXDEV — main.js
+   COMMIT-CREW — main.js
    Loader · Cursor · Scroll · Counter · Terminal
    ========================================= */
 
@@ -202,5 +202,5 @@ document.querySelectorAll('.git-cmd').forEach(cmd => {
   });
 });
 
-console.log('%c NexDev Portfolio 🚀', 'background:#080810; color:#7fff6e; font-family:monospace; font-size:14px; padding:8px 16px; border:1px solid #7fff6e; border-radius:4px;');
-console.log('%c git clone nexdev/portfolio', 'color:#6eb5ff; font-family:monospace; font-size:12px;');
+console.log('%c Commit-Crew Portfolio 🚀', 'background:#080810; color:#7fff6e; font-family:monospace; font-size:14px; padding:8px 16px; border:1px solid #7fff6e; border-radius:4px;');
+console.log('%c https://github.com/Sarthak16082004/Commit-Crew', 'color:#6eb5ff; font-family:monospace; font-size:12px;');

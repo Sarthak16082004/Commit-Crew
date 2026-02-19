@@ -1,5 +1,5 @@
 /* =========================================
-   NEXDEV — interactions.js
+   COMMIT-CREW — interactions.js
    Kanban Drag & Drop + CI/CD Simulator
    ========================================= */
 

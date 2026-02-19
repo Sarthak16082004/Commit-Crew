@@ -1,4 +1,4 @@
-name: CI/CD — NexDev Portfolio
+name: CI/CD — Commit-Crew Portfolio
 
 on:
   push:
